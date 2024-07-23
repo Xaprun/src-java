@@ -12,12 +12,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: aj-dev-env  # Wskazanie środowiska
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up JDK 1.8
+    - name: Set up JDK 
       uses: actions/setup-java@v2
       with:
         #  musisz dodać parametr distribution do akcji setup-java. Ten parametr określa, której dystrybucji JDK chcesz użyć (np. AdoptOpenJDK, Zulu, etc.).
