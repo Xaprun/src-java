@@ -20,8 +20,10 @@ jobs:
     - name: Set up JDK 1.8
       uses: actions/setup-java@v2
       with:
+        #  musisz dodać parametr distribution do akcji setup-java. Ten parametr określa, której dystrybucji JDK chcesz użyć (np. AdoptOpenJDK, Zulu, etc.).
+        distribution: 'adopt' # lub 'zulu', 'temurin' itp.
         java-version: '1.8'
-
+    
     - name: Build with Maven
       run: src-java/mvn clean package
 
