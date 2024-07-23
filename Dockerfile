@@ -1,11 +1,11 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:8-jre-alpine
+# Use an official Tomcat image
+FROM tomcat:9.0-jdk11
 
-# Set the working directory in the container
-WORKDIR /app
+# Copy the WAR file to the webapps directory of Tomcat
+COPY target/my-java-app.war /usr/local/tomcat/webapps/
 
-# Copy the JAR file into the container at /app
-COPY target/docker-java-app-1.0-SNAPSHOT.jar app.jar
+# Expose the port Tomcat is running on
+EXPOSE 8080
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+# Start Tomcat
+CMD ["catalina.sh", "run"]
