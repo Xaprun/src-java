@@ -23,7 +23,7 @@ jobs:
         java-version: '1.8'
 
     - name: Build with Maven
-      run: mvn clean package
+      run: src-java/mvn clean package
 
     - name: Log in to Docker Hub
       env:
