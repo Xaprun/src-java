@@ -23,7 +23,7 @@ jobs:
       with:
         #  musisz dodać parametr distribution do akcji setup-java. Ten parametr określa, której dystrybucji JDK chcesz użyć (np. AdoptOpenJDK, Zulu, etc.).
         distribution: 'adopt' # lub 'zulu', 'temurin' itp.
-        java-version: '22.0.2+9'
+        java-version: '11'
     
     - name: Build with Maven
       run:  mvn clean package
