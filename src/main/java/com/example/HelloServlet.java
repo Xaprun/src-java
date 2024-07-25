@@ -30,6 +30,7 @@ public class HelloServlet extends HttpServlet {
 
         // Połączenie z Redis
         try (Jedis jedis = new Jedis("redis-container", 6379)) {
+            response.getWriter().println("<li>Connected to Redis</li>");
             // Pobranie wszystkich kluczy
             Set<String> keys = jedis.keys("*");
             for (String key : keys) {
@@ -37,7 +38,8 @@ public class HelloServlet extends HttpServlet {
                 response.getWriter().println("<li>" + key + ": " + value + "</li>");
             }
         } catch (Exception e) {
-            response.getWriter().println("<li>Could not connect to Redis</li>");
+            response.getWriter().println("<li>Could not connect to Redis: " + e.getMessage() + "</li>");
+            e.printStackTrace(response.getWriter());
         }
 
         response.getWriter().println("</ul>");
