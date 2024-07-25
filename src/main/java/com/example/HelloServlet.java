@@ -13,6 +13,16 @@ public class HelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        response.getWriter().println("Hello, Docker!");
+        response.getWriter().println("<!DOCTYPE html>");
+        response.getWriter().println("<html>");
+        response.getWriter().println("<head>");
+        response.getWriter().println("<style>");
+        response.getWriter().println("body { background-color: red; }");
+        response.getWriter().println("</style>");
+        response.getWriter().println("</head>");
+        response.getWriter().println("<body>");
+        response.getWriter().println("<h1>Hello, Docker!</h1>");
+        response.getWriter().println("</body>");
+        response.getWriter().println("</html>");
     }
 }

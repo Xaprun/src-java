@@ -40,7 +40,7 @@ jobs:
 
 
     - name: Build Docker image
-      run: docker build . -t xaprun/aj-java-helloapp:1.0
+      run: docker build . -t xaprun/aj-java-helloapp:1.1-red
 
     - name: Push Docker image
-      run: docker push xaprun/aj-java-helloapp:1.0
+      run: docker push xaprun/aj-java-helloapp:1.1-red
