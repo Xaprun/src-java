@@ -2,6 +2,7 @@ package com.example;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,12 +31,38 @@ public class HelloServlet extends HttpServlet {
 
         // Połączenie z Redis
         try (Jedis jedis = new Jedis("redis-container", 6379)) {
-            response.getWriter().println("<li>Connected to Redis</li>");
-            // Pobranie wszystkich kluczy
-            Set<String> keys = jedis.keys("*");
-            for (String key : keys) {
-                String value = jedis.get(key);
-                response.getWriter().println("<li>" + key + ": " + value + "</li>");
+            String pong = jedis.ping();
+            if ("PONG".equals(pong)) {
+                response.getWriter().println("<li>Connected to Redis successfully: PONG</li>");
+                // Pobranie wszystkich kluczy
+                Set<String> keys = jedis.keys("*");
+                for (String key : keys) {
+                    String type = jedis.type(key);
+                    response.getWriter().println("<li>" + key + " (Type: " + type + "): ");
+
+                    switch (type) {
+                        case "string":
+                            response.getWriter().println(jedis.get(key));
+                            break;
+                        case "list":
+                            response.getWriter().println(jedis.lrange(key, 0, -1).toString());
+                            break;
+                        case "set":
+                            response.getWriter().println(jedis.smembers(key).toString());
+                            break;
+                        case "hash":
+                            response.getWriter().println(jedis.hgetAll(key).toString());
+                            break;
+                        case "zset":
+                            response.getWriter().println(jedis.zrange(key, 0, -1).toString());
+                            break;
+                        default:
+                            response.getWriter().println("(unknown type)");
+                    }
+                    response.getWriter().println("</li>");
+                }
+            } else {
+                response.getWriter().println("<li>Could not connect to Redis: Unexpected response: " + pong + "</li>");
             }
         } catch (Exception e) {
             response.getWriter().println("<li>Could not connect to Redis: " + e.getMessage() + "</li>");
