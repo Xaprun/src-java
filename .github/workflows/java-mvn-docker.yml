@@ -3,7 +3,7 @@ name: Build and push Docker image
 on:
   push:
     branches:
-      - root
+      - blue
   pull_request:
     branches:
       - main
@@ -40,7 +40,7 @@ jobs:
 
 
     - name: Build Docker image
-      run: docker build . -t xaprun/aj-java-helloapp:1.1-red
+      run: docker build . -t xaprun/aj-java-helloapp:1.2-blue
 
     - name: Push Docker image
-      run: docker push xaprun/aj-java-helloapp:1.1-red
+      run: docker push xaprun/aj-java-helloapp:1.2-blue
